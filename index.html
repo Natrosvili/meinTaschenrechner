@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,48 +16,60 @@
 
     <table>
         <tr>
-            <td id="del" onclick="sagHi()">C</td>
+            <td id="del" onclick="deleteAlles()">C</td>
             <td class="highlight" onclick="deleteLast()" id="DEL">DEL</td>
-            <td class="highlight" onclick="appendOperation(' % ')">%</td>
+            <td class="highlight" onclick="appendOperation2(' % ')">%</td>
             <td>🖩</td>
         </tr>
         <tr>
-            <td onclick="appendOperation(7)">7</td>
-            <td onclick="appendOperation(8)">8</td>
-            <td onclick="appendOperation(9)">9</td>
-            <td class="highlight" onclick="appendOperation(' / ')">/</td>
+            <td onclick="appendOperation1(7)">7</td>
+            <td onclick="appendOperation1(8)">8</td>
+            <td onclick="appendOperation1(9)">9</td>
+            <td class="highlight" onclick="appendOperation2(' / ')">/</td>
         </tr>
         <tr>
-            <td onclick="appendOperation(4)">4</td>
-            <td onclick="appendOperation(5)">5</td>
-            <td onclick="appendOperation(6)">6</td>
-            <td class="highlight" onclick="appendOperation(' * ')">x</td>
+            <td onclick="appendOperation1(4)">4</td>
+            <td onclick="appendOperation1(5)">5</td>
+            <td onclick="appendOperation1(6)">6</td>
+            <td class="highlight" onclick="appendOperation2(' * ')">x</td>
         </tr>
 
         <tr>
-            <td onclick="appendOperation(1)">1</td>
-            <td onclick="appendOperation(2)">2</td>
-            <td onclick="appendOperation(3)">3</td>
-            <td class="highlight" onclick="appendOperation(' - ')">-</td>
+            <td onclick="appendOperation1(1)">1</td>
+            <td onclick="appendOperation1(2)">2</td>
+            <td onclick="appendOperation1(3)">3</td>
+            <td class="highlight" onclick="appendOperation2(' - ')">-</td>
         </tr>
         <tr>
-            <td onclick="appendOperation(0)">0</td>
-            <td onclick="appendOperation('.')">.</td>
+            <td onclick="appendOperation1(0)">0</td>
+            <td onclick="appendOperation2('.')">.</td>
             <td onclick="calculateResult()" id="result">=</td>
-            <td class="highlight" onclick="appendOperation(' + ')">+</td>
+            <td class="highlight" onclick="appendOperation2(' + ')">+</td>
         </tr>
     </table>
 
     <script>
-        function appendOperation(operation) {
-            document.getElementById("resultArea").innerHTML += operation;
+        function appendOperation1(operation1) {
+            let container = document.getElementById("resultArea");
+            container.innerHTML += operation1;
         }
+
+
+        function appendOperation2(operation2) {
+            let container = document.getElementById("resultArea");
+            container.innerHTML += operation2;
+            
+            // Hier müssen wir verhindern, dass die Taste erneut angeklickt wird, 
+            //indem wir denselben Container drucken (z. B. 1 ++ 10 - - 2). 
+        } 
+
 
         function calculateResult() {
             let container = document.getElementById("resultArea");
             let result = eval(container.innerHTML);
             container.innerHTML = result;
         }
+
 
         function deleteLast() {
             let container = document.getElementById("resultArea");
@@ -67,14 +78,15 @@
             } else {
                 container.innerHTML = container.innerHTML.slice(0, -1);
             }
+        }
 
-            function sagHi() {
-                let container = document.getElementById("del");
-                if (container.innerHTML.endsWith(' ')) {
-                    container.innerHTML = container.innerHTML.slice(0, -1);
-                } else {
-                    container.innerHTML = container.innerHTML.slice(0, -3);
-                }
+
+        function deleteAlles() {
+            let container = document.getElementById("resultArea");
+            if (container.innerHTML.endsWith(' ')) {
+                container.innerHTML = container.innerHTML.slice(-3, 0);
+            } else {
+                container.innerHTML = container.innerHTML.slice(-1, 0);            
             }
         }
     </script>
